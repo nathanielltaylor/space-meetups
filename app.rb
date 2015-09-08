@@ -31,7 +31,24 @@ def authenticate!
 end
 
 get '/' do
+  @title = "Meet Ups in Space"
+  #test meetups
+  @meetups = Meetup.all.order(:title)
   erb :index
+end
+
+get '/:id' do
+  @meetup = Meetup.all.find_by id: params['id']
+  erb :show
+end
+
+post '/' do
+  var = Meetup.create(
+  title: params[:title],
+  description: params[:description],
+  location: params[:location]
+  )
+  redirect "/#{var.id}"
 end
 
 get '/auth/github/callback' do
