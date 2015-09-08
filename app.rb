@@ -6,6 +6,8 @@ require 'omniauth-github'
 require_relative 'config/application'
 set :environment, :development
 
+enable :sessions
+
 Dir['app/**/*.rb'].each { |file| require_relative file }
 
 helpers do
@@ -25,7 +27,7 @@ end
 
 def authenticate!
   unless signed_in?
-    flash[:notice] = 'You need to sign in if you want to do that!'
+    flash[:notice] = "You need to sign in if you want to do that!"
     redirect '/'
   end
 end
@@ -48,7 +50,9 @@ post '/' do
   description: params[:description],
   location: params[:location]
   )
+  flash[:notice] = "Here is your new event"
   redirect "/#{var.id}"
+
 end
 
 get '/auth/github/callback' do
