@@ -1,4 +1,9 @@
 <h1><%= @meetup.title %></h1>
 <p>Location: <%= @meetup.location %></p>
 <p>Description: <%= @meetup.description %></p>
+Who's going?
+<% @meetup.users.each do |user| %>
+  <p><img src = '<%= user.avatar_url %>'>
+  <%= user.username %></p>
+<% end %>
 <a href="/">Home</a>

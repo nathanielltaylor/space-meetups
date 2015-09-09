@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(version: 20150908175116) do
     t.string "location",    null: false
   end
 
-  create_table "usermeetups", force: :cascade do |t|
-    t.string "meetup_id", null: false
-    t.string "user_id",   null: false
+  create_table "user_meetups", force: :cascade do |t|
+    t.integer "meetup_id", null: false
+    t.integer "user_id",   null: false
   end
 
   create_table "users", force: :cascade do |t|

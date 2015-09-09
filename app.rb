@@ -33,10 +33,16 @@ def authenticate!
 end
 
 get '/' do
-  @title = "Meet Ups in Space"
   #test meetups
   @meetups = Meetup.all.order(:title)
   erb :index
+end
+
+get '/sign_out' do
+  session[:user_id] = nil
+  flash[:notice] = "You have been signed out."
+
+  redirect '/'
 end
 
 get '/:id' do
@@ -61,13 +67,6 @@ get '/auth/github/callback' do
   user = User.find_or_create_from_omniauth(auth)
   set_current_user(user)
   flash[:notice] = "You're now signed in as #{user.username}!"
-
-  redirect '/'
-end
-
-get '/sign_out' do
-  session[:user_id] = nil
-  flash[:notice] = "You have been signed out."
 
   redirect '/'
 end

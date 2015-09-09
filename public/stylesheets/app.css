@@ -14,6 +14,10 @@ a:visited {
   max-width: 1024px;
   margin: 0 auto;
 }
+.container a:hover {
+  color: red;
+
+}
 
 .top-bar {
   background-color: #3C3C3C;
@@ -41,4 +45,9 @@ a:visited {
 
 form {
   color: orange;
+}
+
+img {
+  width:100px;
+  height:100px;
 }
