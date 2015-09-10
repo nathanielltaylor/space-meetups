@@ -6,4 +6,17 @@ Who's going?
   <p><img src = '<%= user.avatar_url %>'>
   <%= user.username %></p>
 <% end %>
+
+<form action="/<%= @meetup.id %>/join" method="post">
+  <button type="submit">
+    <% if !@meetup.users.include?(current_user) %>
+      <%= 'Join' %>
+    <% else %>
+      <%= 'Leave' %>
+    <% end %>
+  </button>
+</form>
+
+
+
 <a href="/">Home</a>

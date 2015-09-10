@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
 require 'omniauth-github'
+require 'pry'
 
 require_relative 'config/application'
 set :environment, :development
@@ -50,7 +51,21 @@ get '/:id' do
   erb :show
 end
 
+post '/:id/join' do
+  authenticate!
+  @meetup = Meetup.all.find_by id: params['id']
+  if @meetup.users.include?(current_user)
+    UserMeetup.find_by(user: current_user, meetup: @meetup).destroy
+    flash[:notice] = "You are no longer attending this event"
+  else
+    UserMeetup.create(user: current_user, meetup: @meetup)
+    flash[:notice] = "You are now attending this event"
+  end
+  redirect "/#{@meetup.id}"
+end
+
 post '/' do
+  authenticate!
   var = Meetup.create(
   title: params[:title],
   description: params[:description],
